@@ -1,0 +1,23 @@
+<div class="note-editor-container">
+  <form [formGroup]="noteForm" (ngSubmit)="onSave()" autocomplete="off">
+    <input
+      type="text"
+      class="note-title-input"
+      placeholder="Note title"
+      formControlName="title"
+      maxlength="64"
+      required
+    />
+    <textarea
+      class="note-content-input"
+      placeholder="Type your note here..."
+      formControlName="content"
+      rows="13"
+      required
+    ></textarea>
+    <div class="editor-actions">
+      <button type="submit" class="save-btn">Save</button>
+      <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

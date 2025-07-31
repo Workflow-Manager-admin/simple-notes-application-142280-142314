@@ -1,0 +1,28 @@
+<aside class="note-list-panel">
+  <div class="note-list-header">
+    <span>My Notes</span>
+    <button class="accent-btn" (click)="onCreateClick()" title="New note">
+      ＋
+    </button>
+  </div>
+  <ul class="note-list">
+    <li
+      *ngFor="let note of notes"
+      [class.selected]="note.id === selectedNoteId"
+      (click)="onNoteClick(note.id)"
+      tabindex="0"
+      [attr.aria-label]="'Select note: ' + note.title"
+    >
+      <div class="note-title">{{ note.title }}</div>
+      <span class="note-date">{{ note.createdAt | date:'shortDate' }}</span>
+      <button
+        class="delete-btn"
+        (click)="onDeleteClick($event, note.id)"
+        title="Delete"
+        tabindex="-1"
+        aria-label="Delete note"
+      >🗑️</button>
+    </li>
+  </ul>
+  <div *ngIf="notes.length === 0" class="no-notes">No notes yet.</div>
+</aside>

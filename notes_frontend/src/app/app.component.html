@@ -1,3 +1,33 @@
-<div class="container">
-  <h1>{{ title }}</h1>
+<app-header></app-header>
+<div class="main-shell">
+  <app-note-list
+    [notes]="(notes$ | async) || []"
+    [selectedNoteId]="selectedNoteId"
+    (selectNote)="onSelectNote($event)"
+    (deleteNote)="onDeleteNote($event)"
+    (createNote)="onCreateNote()"
+  ></app-note-list>
+  <main class="note-main">
+    <ng-container *ngIf="isCreating; else showNote">
+      <app-note-editor
+        [isNew]="true"
+        (save)="onSaveNote($event)"
+        (cancel)="onCancelEdit()"
+      ></app-note-editor>
+    </ng-container>
+    <ng-template #showNote>
+      <ng-container *ngIf="selectedNote">
+        <app-note-editor
+          [note]="selectedNote"
+          (save)="onSaveNote($event)"
+          (cancel)="onCancelEdit()"
+        ></app-note-editor>
+      </ng-container>
+      <ng-container *ngIf="!selectedNote && !isCreating">
+        <div class="empty-state">
+          <h2>Select or create a note to get started.</h2>
+        </div>
+      </ng-container>
+    </ng-template>
+  </main>
 </div>
